@@ -7,20 +7,21 @@ app = Flask(__name__)
 # Note: We don't need to call run() since our application is embedded within
 # the App Engine WSGI application server.
 
+def create_pool():
+    mylist = []
+    with open("images-urls.txt") as f:
+        for line in f:
+            line = line.strip()
+            if line != "":
+                mylist.append(line)
+    return mylist
+
 
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
-    list =  ["http://i.imgur.com/1CzMDjg.jpg",
-    "http://i.imgur.com/qaghMWe.jpg",
-    "http://i.imgur.com/VP0qn6T.jpg",
-    "http://i.imgur.com/eQQbcxe.jpg",
-    "http://i.imgur.com/kd4iDTh.jpg",
-    "http://i.imgur.com/X89iRAN.jpg",
-    "http://i.imgur.com/w2GWoJu.jpg",
-    "http://i.imgur.com/kSzF0Dh.jpg",
-    "http://i.imgur.com/lCDLHU1.jpg"]
-    sub_list = random.sample(list, 10)
+    mylist = create_pool()
+    sub_list = random.sample(mylist, 50)
     return jsonify(results=sub_list)
 
 
