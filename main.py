@@ -2,6 +2,7 @@
 
 # Import the Flask Framework
 from flask import Flask, jsonify
+import random
 app = Flask(__name__)
 # Note: We don't need to call run() since our application is embedded within
 # the App Engine WSGI application server.
@@ -10,8 +11,17 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
-    list = ["Hello World!", "This is your father, Luke."]
-    return jsonify(results=list)
+    list =  ["http://i.imgur.com/1CzMDjg.jpg",
+    "http://i.imgur.com/qaghMWe.jpg",
+    "http://i.imgur.com/VP0qn6T.jpg",
+    "http://i.imgur.com/eQQbcxe.jpg",
+    "http://i.imgur.com/kd4iDTh.jpg",
+    "http://i.imgur.com/X89iRAN.jpg",
+    "http://i.imgur.com/w2GWoJu.jpg",
+    "http://i.imgur.com/kSzF0Dh.jpg",
+    "http://i.imgur.com/lCDLHU1.jpg"]
+    sub_list = random.sample(list, 10)
+    return jsonify(results=sub_list)
 
 
 @app.errorhandler(404)
